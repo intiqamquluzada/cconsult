@@ -157,12 +157,35 @@ class AboutSideBar(DateMixin):
     desc_3 = models.TextField(verbose_name="Description 3")
     image_3 = models.ImageField(upload_to=Uploader.upload_photo_to_about)
 
-
     def __str__(self):
         return f"{self.title_1}, {self.title_2}, {self.title_3}"
 
     class Meta:
-        ordering = ("-created_at", )
+        ordering = ("-created_at",)
         verbose_name = "About Side bar"
         verbose_name_plural = "About Side Bar"
 
+
+class HomeSlider(DateMixin):
+    title = models.CharField(max_length=255, verbose_name="Title")
+    image = models.ImageField(upload_to=Uploader.upload_photo_to_slider, verbose_name="Slider image")
+
+    def __str__(self):
+        return self.title
+
+    class Meta:
+        ordering = ("-created_at",)
+        verbose_name = "Home Slider"
+        verbose_name_plural = "Home Sliders"
+
+
+class Subscribe(DateMixin):
+    email = models.EmailField(verbose_name='E-mail')
+
+    def __str__(self):
+        return self.email
+
+    class Meta:
+        ordering = ("-created_at",)
+        verbose_name = "Subscriber"
+        verbose_name_plural = "Subscribers"

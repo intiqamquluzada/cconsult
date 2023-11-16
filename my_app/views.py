@@ -1,5 +1,5 @@
 from django.shortcuts import redirect, render
-from my_app.models import Blog, Service, Comment, AboutModel,AboutSideBar
+from my_app.models import Blog, Service, Comment, AboutModel, AboutSideBar, HomeSlider, Subscribe
 from django.contrib.auth import authenticate, login, logout
 
 
@@ -81,5 +81,18 @@ def about_view(request):
 def home_view(request):
     services = Service.objects.all()[:6]
     blogs = Blog.objects.order_by("-created_at")[:3]
-    context = {}
+
+    sliders = HomeSlider.objects.all()
+
+    if request.method == "POST":
+        sub_email = request.POST.get("email")
+        if sub_email:
+            obj = Subscribe.objects.create(
+                email=sub_email
+            )
+            obj.save()
+
+    context = {
+        "sliders": sliders,
+    }
     return render(request, "index.html", context)

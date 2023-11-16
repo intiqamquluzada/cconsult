@@ -6,6 +6,8 @@ admin.site.register(Testimonial)
 admin.site.register(Comment)
 admin.site.register(AboutModel)
 admin.site.register(AboutSideBar)
+admin.site.register(HomeSlider)
+admin.site.register(Subscribe)
 
 class ServiceAdmin(admin.ModelAdmin):
     list_display = ('title', 'description','image', 'slug', 'updated_at', 'created_at')
