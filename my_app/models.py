@@ -116,12 +116,11 @@ class Comment(DateMixin, SlugMixin):
     blog = models.ForeignKey(Blog, on_delete=models.SET_NULL, null=True, blank=True)
     user = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, blank=True)
 
-
     def __str__(self):
         return self.text[:10]
 
     class Meta:
-        ordering = ("-created_at", )
+        ordering = ("-created_at",)
         verbose_name = "Rey"
         verbose_name_plural = "Reyler"
 
@@ -129,3 +128,41 @@ class Comment(DateMixin, SlugMixin):
         if not self.slug:
             self.slug = Generator.create_slug_shortcode(size=10, model_=Comment)
         super(Comment, self).save(*args, **kwargs)
+
+
+class AboutModel(DateMixin):
+    title = models.CharField(max_length=255, verbose_name="Title")
+    sub_title = models.CharField(max_length=255, verbose_name="Sub title")
+    description = models.TextField(verbose_name="Text")
+
+    def __str__(self):
+        return self.title
+
+    class Meta:
+        ordering = ("-created_at",)
+        verbose_name = "About"
+        verbose_name_plural = "About"
+
+
+class AboutSideBar(DateMixin):
+    title_1 = models.CharField(max_length=255, verbose_name="Title 1")
+    desc_1 = models.TextField(verbose_name="Description 1")
+    image_1 = models.ImageField(upload_to=Uploader.upload_photo_to_about)
+
+    title_2 = models.CharField(max_length=255, verbose_name="Title 2")
+    desc_2 = models.TextField(verbose_name="Description 2")
+    image_2 = models.ImageField(upload_to=Uploader.upload_photo_to_about)
+
+    title_3 = models.CharField(max_length=255, verbose_name="Title 3")
+    desc_3 = models.TextField(verbose_name="Description 3")
+    image_3 = models.ImageField(upload_to=Uploader.upload_photo_to_about)
+
+
+    def __str__(self):
+        return f"{self.title_1}, {self.title_2}, {self.title_3}"
+
+    class Meta:
+        ordering = ("-created_at", )
+        verbose_name = "About Side bar"
+        verbose_name_plural = "About Side Bar"
+

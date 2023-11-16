@@ -1,5 +1,5 @@
 from django.shortcuts import redirect, render
-from my_app.models import Blog, Service, Comment
+from my_app.models import Blog, Service, Comment, AboutModel,AboutSideBar
 from django.contrib.auth import authenticate, login, logout
 
 
@@ -67,9 +67,19 @@ def blog_detail_view(request, slug):
     }
     return render(request, 'detail.html', context)
 
-# class Animal:
-#     age = ...
-#     name = ...
-#     color = ...
-#
-# obj_1 = Animal(age=7, name='Mestan', color='gray')
+
+def about_view(request):
+    about = AboutModel.objects.first()
+    side_bar = AboutSideBar.objects.first()
+    context = {
+        "about": about,
+        "side_bar": side_bar,
+    }
+    return render(request, "about.html", context)
+
+
+def home_view(request):
+    services = Service.objects.all()[:6]
+    blogs = Blog.objects.order_by("-created_at")[:3]
+    context = {}
+    return render(request, "index.html", context)
