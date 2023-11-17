@@ -117,19 +117,19 @@
                 <!-- Blog Detail End -->
 
                 <!-- Comment List Start -->
+
                 <div class="mb-5">
                     <h2 class="mb-4">{{comments.count}} Comments</h2>
                     {% for c in comments %}
                     <div class="d-flex mb-4">
                         <img src="{{c.user.pp.url}}" class="img-fluid rounded-circle" style="width: 45px; height: 45px;">
                         <div class="ps-3">
-                            <h6><a href="">{{c.user.email}}</a> <small><i>{{c.created_at}}</i></small></h6>
+                            <h6><a href="">{{c.user.email}}</a> <small><i>{{c.created_at|date:'f'}}</i></small></h6>
                             <p>{{c.text}}</p>
-
+                            <button class="btn btn-sm btn-light">Reply</button>
                         </div>
                     </div>
                     {% endfor %}
-                </div>
                 <!-- Comment List End -->
 
                 <!-- Comment Form Start -->
@@ -138,9 +138,8 @@
                     <form method="post">
                         {% csrf_token %}
                         <div class="row g-3">
-
                             <div class="col-12">
-                                <textarea class="form-control bg-white border-0" rows="5" placeholder="Comment" name="comment"></textarea>
+                                <textarea class="form-control bg-white border-0" rows="5" name="comment" placeholder="Comment"></textarea>
                             </div>
                             <div class="col-12">
                                 <button class="btn btn-primary w-100 py-3" type="submit">Leave Your Comment</button>

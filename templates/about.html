@@ -16,7 +16,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Barlow:wght@500;600;700&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet"> 
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
     <!-- Icon Font Stylesheet -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet">
@@ -126,7 +126,7 @@
                     </div>
                     <div class="d-flex text-white mb-5">
                         <div class="d-flex flex-shrink-0 align-items-center justify-content-center bg-white text-primary rounded-circle mx-auto mb-4" style="width: 60px; height: 60px;">
-                            <i class="fa-brands fa-instagram"></i>
+                            <i class="fa fa-chart-line fs-4"></i>
                         </div>
                         <div class="ps-4">
                             <h3>{{side_bar.title_2}}</h3>
@@ -135,8 +135,7 @@
                     </div>
                     <div class="d-flex text-white">
                         <div class="d-flex flex-shrink-0 align-items-center justify-content-center bg-white text-primary rounded-circle mx-auto mb-4" style="width: 60px; height: 60px;">
-                            <i class="fa-solid fa-golf-ball-tee"></i>
-
+                            <i class="fa fa-balance-scale fs-4"></i>
                         </div>
                         <div class="ps-4">
                             <h3>{{side_bar.title_3}}</h3>
@@ -234,10 +233,18 @@
             <div class="col-lg-3 col-md-6">
                 <h3 class="text-white mb-4">Follow Us</h3>
                 <div class="d-flex">
-                    <a class="btn btn-lg btn-primary btn-lg-square rounded-circle me-2" href="#"><i class="fab fa-twitter fw-normal"></i></a>
-                    <a class="btn btn-lg btn-primary btn-lg-square rounded-circle me-2" href="#"><i class="fab fa-facebook-f fw-normal"></i></a>
+                    {% for s in socials %}
+                    {% if s.sosial_name == 'twitter' %}
+                    <a class="btn btn-lg btn-primary btn-lg-square rounded-circle me-2" href="https://{{s.sosial_link}}"><i class="fab fa-twitter fw-normal"></i></a>
+                    {% endif %}
+                    {% if s.sosial_name == 'fb' %}
+                    <a class="btn btn-lg btn-primary btn-lg-square rounded-circle me-2" href="https://{{s.sosial_link}}"><i class="fab fa-facebook-f fw-normal"></i></a>
+                    {% endif %}
                     <a class="btn btn-lg btn-primary btn-lg-square rounded-circle me-2" href="#"><i class="fab fa-linkedin-in fw-normal"></i></a>
-                    <a class="btn btn-lg btn-primary btn-lg-square rounded-circle" href="#"><i class="fab fa-instagram fw-normal"></i></a>
+                    {% if s.sosial_name == 'insta' %}
+                    <a class="btn btn-lg btn-primary btn-lg-square rounded-circle" href="https://{{s.sosial_link}}"><i class="fab fa-instagram fw-normal"></i></a>
+                    {% endif %}
+                    {% endfor %}
                 </div>
             </div>
         </div>
@@ -258,7 +265,7 @@
     <script src="{% static 'lib/easing/easing.min.js' %}"></script>
     <script src="{% static 'lib/waypoints/waypoints.min.js' %}"></script>
     <script src="{% static 'lib/owlcarousel/owl.carousel.min.js' %}"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/js/all.min.js" integrity="sha512-uKQ39gEGiyUJl4AI6L+ekBdGKpGw4xJ55+xyJG7YFlJokPNYegn9KwQ3P8A7aFQAUtUsAQHep+d/lrGqrbPIDQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
     <!-- Template Javascript -->
     <script src="{% static 'js/main.js' %}"></script>
 </body>

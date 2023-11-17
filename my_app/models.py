@@ -4,6 +4,15 @@ from services.generator import Generator
 from services.uploader import Uploader
 from django.contrib.auth import get_user_model
 
+SOCIAL_CHOICES = (
+    ("insta", "Instagram"),
+    ("fb", "Facebook"),
+    ("wp", "WhatsApp"),
+    ("twitter", "Twitter"),
+    ("linkedin", "Linkedin"),
+    ("tiktok", "Tiktok")
+)
+
 User = get_user_model()
 
 
@@ -84,7 +93,7 @@ class Contact(SlugMixin, DateMixin):
         super(Contact, self).save(*args, **kwargs)
 
 
-class Team(SlugMixin, DateMixin):
+class Team(DateMixin):
     name = models.CharField(max_length=255, verbose_name='ad')
     position = models.CharField(max_length=255, verbose_name='vezifesi')
     image = models.ImageField(upload_to=Uploader.upload_photo_to_team)
@@ -98,9 +107,10 @@ class Team(SlugMixin, DateMixin):
         verbose_name_plural = 'comanda'
 
 
-class Testimonial(SlugMixin, DateMixin):
+class Testimonial(DateMixin):
     description = models.TextField(verbose_name='metn')
     user = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, blank=True)
+    profesion = models.CharField(max_length=255, verbose_name='ixtisas', null=True, blank=True)
 
     def __str__(self):
         return self.description[0:5]
@@ -131,9 +141,9 @@ class Comment(DateMixin, SlugMixin):
 
 
 class AboutModel(DateMixin):
-    title = models.CharField(max_length=255, verbose_name="Title")
-    sub_title = models.CharField(max_length=255, verbose_name="Sub title")
-    description = models.TextField(verbose_name="Text")
+    title = models.CharField(max_length=255, verbose_name='title')
+    sub_title = models.CharField(max_length=255, verbose_name='sub title')
+    description = models.TextField(verbose_name='text')
 
     def __str__(self):
         return self.title
@@ -145,47 +155,118 @@ class AboutModel(DateMixin):
 
 
 class AboutSideBar(DateMixin):
-    title_1 = models.CharField(max_length=255, verbose_name="Title 1")
-    desc_1 = models.TextField(verbose_name="Description 1")
+    title_1 = models.CharField(max_length=255, verbose_name='title 1')
+    desc_1 = models.TextField(verbose_name='description 1')
     image_1 = models.ImageField(upload_to=Uploader.upload_photo_to_about)
 
-    title_2 = models.CharField(max_length=255, verbose_name="Title 2")
-    desc_2 = models.TextField(verbose_name="Description 2")
+    title_2 = models.CharField(max_length=255, verbose_name='title 2')
+    desc_2 = models.TextField(verbose_name='description 2')
     image_2 = models.ImageField(upload_to=Uploader.upload_photo_to_about)
 
-    title_3 = models.CharField(max_length=255, verbose_name="Title 3")
-    desc_3 = models.TextField(verbose_name="Description 3")
+    title_3 = models.CharField(max_length=255, verbose_name='title 3')
+    desc_3 = models.TextField(verbose_name='description 3')
     image_3 = models.ImageField(upload_to=Uploader.upload_photo_to_about)
 
     def __str__(self):
-        return f"{self.title_1}, {self.title_2}, {self.title_3}"
+        return f"{self.title_1},{self.title_2},{self.title_3}"
 
     class Meta:
         ordering = ("-created_at",)
-        verbose_name = "About Side bar"
+        verbose_name = "About Side Bar"
         verbose_name_plural = "About Side Bar"
 
 
-class HomeSlider(DateMixin):
-    title = models.CharField(max_length=255, verbose_name="Title")
-    image = models.ImageField(upload_to=Uploader.upload_photo_to_slider, verbose_name="Slider image")
+class SosialMedia(DateMixin):
+    sosial_name = models.CharField(max_length=255, verbose_name='sosial media hesabi', choices=SOCIAL_CHOICES)
+    sosial_link = models.TextField(verbose_name='sosial media linki')
 
     def __str__(self):
-        return self.title
+        return self.sosial_name
 
     class Meta:
-        ordering = ("-created_at",)
-        verbose_name = "Home Slider"
-        verbose_name_plural = "Home Sliders"
+        ordering = ("sosial_name",)
+        verbose_name = "sosial media hesabi"
+        verbose_name_plural = "sosial media hesablari"
 
 
 class Subscribe(DateMixin):
-    email = models.EmailField(verbose_name='E-mail')
+    email = models.EmailField(verbose_name='email')
 
     def __str__(self):
         return self.email
 
     class Meta:
         ordering = ("-created_at",)
-        verbose_name = "Subscriber"
-        verbose_name_plural = "Subscribers"
+        verbose_name = "abune"
+        verbose_name_plural = "abuneler"
+
+
+class HomeSlider(DateMixin):
+    title = models.CharField(max_length=255, verbose_name='title')
+    image = models.ImageField(upload_to=Uploader.upload_photo_to_slider, verbose_name='slider image')
+
+    def __str__(self):
+        return self.title
+
+    class Meta:
+        ordering = ("-created_at",)
+        verbose_name = "Home slider"
+        verbose_name_plural = "Home sliders"
+
+
+# class MainDetails(DateMixin):
+
+
+class Emails(DateMixin):
+    email = models.EmailField(verbose_name="Email")
+    is_part = models.BooleanField(default=False)
+
+    def __str__(self):
+        return self.email
+
+    class Meta:
+        ordering = ("-created_at",)
+        verbose_name = "Email"
+        verbose_name_plural = "Emailler"
+
+
+class Phones(DateMixin):
+    phone = models.CharField(max_length=255, verbose_name="Phone number")
+
+    def __str__(self):
+        return self.phone
+
+    class Meta:
+        ordering = ("-created_at",)
+        verbose_name = "Phone"
+        verbose_name_plural = "Phones"
+
+
+class Locations(DateMixin):
+    location = models.CharField(max_length=255, verbose_name="Phone number")
+
+
+    def __str__(self):
+        return self.location
+
+    class Meta:
+        ordering = ("-created_at",)
+        verbose_name = "Location"
+        verbose_name_plural = "Locations"
+
+
+class MainDetails(DateMixin):
+    emails = models.ManyToManyField(Emails, verbose_name="Emails")
+    locations = models.ManyToManyField(Locations, verbose_name="Locations")
+    phones = models.ManyToManyField(Phones, verbose_name="Phones")
+
+    logo = models.ImageField(upload_to=Uploader.upload_photo_to_logo)
+    logo_name = models.CharField(max_length=255,verbose_name="Right side of logo")
+
+    def __str__(self):
+        return self.logo_name
+
+    class Meta:
+        ordering = ("-created_at", )
+        verbose_name = "Main information"
+        verbose_name_plural = "Main information"
