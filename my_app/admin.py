@@ -9,10 +9,11 @@ admin.site.register(AboutSideBar)
 admin.site.register(SosialMedia)
 admin.site.register(Subscribe)
 admin.site.register(HomeSlider)
-admin.site.register(Locations)
-admin.site.register(Phones)
+admin.site.register(Location)
 admin.site.register(Emails)
+admin.site.register(Phones)
 admin.site.register(MainDetails)
+
 
 class ServiceAdmin(admin.ModelAdmin):
     list_display = ('title', 'description','image', 'slug', 'updated_at', 'created_at')

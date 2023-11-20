@@ -1,5 +1,5 @@
-{% extends 'base.html' %}
 
+{% extends 'base.html'%}
 {% load static %}
 
 
@@ -278,7 +278,14 @@
         </div>
     </div>
     <!-- Quote End -->
-
+    <div class="col-md-6 px-0">
+        <div class="map_container">
+          <div class="map">
+            <div ><iframe src="{{main_detail.map_url}}" width="600" height="465" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe></div>
+          </div>
+        </div>
+      </div>
+    </div>
 
     <!-- Team Start -->
     <div class="container-fluid py-6 px-5">
@@ -430,7 +437,6 @@
         </div>
     </div>
     <!-- Blog End -->
+    {% endblock body %}
     
 
-    <!-- Footer Start -->
-{% endblock body %}

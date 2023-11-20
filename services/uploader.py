@@ -20,7 +20,7 @@ class Uploader:
     @staticmethod
     def upload_photo_to_slider(instance, filename):
         return f"slider/{filename}"
-
+    
     @staticmethod
     def upload_photo_to_logo(instance, filename):
         return f"logo/{filename}"
